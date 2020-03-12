@@ -1,0 +1,48 @@
+#NeuralNet
+
+Train <- hw07dataTrain
+Test <- hw07dataTest
+
+set.seed(1)
+model <- neuralnet(data=Train, class~var1+var2+var3+var4, hidden=3)
+plot(model)
+
+Pred <- predict(model, Test[,1:4])
+Pred <-sapply(Pred, round, digits=0)
+Pred<- as.factor(Pred)
+
+table(Pred, Test[,5])
+
+
+#Calculating a Perceptron
+
+data <- hw07dataTiny
+lambda <- 0.1
+
+CalcW <- function(x,y,yhat,w) {
+    w <- w + lambda * (y-yhat)*x
+    return(w)
+}
+
+Node <- function(data){
+    data <- cbind(1,data)
+    Wini <- cbind(0.1,0.1,0.1,0.1)
+    Wfin <- cbind(0,0,0,0)
+    i = 1
+    while(all(Wini != Wfin) | (i<nrow(data))){
+        x <- as.matrix(data[i,1:4])
+        y <- as.numeric(data[i,5])
+        Wfin <- Wini
+        yhat <- x %*% t(Wini)
+        if(yhat >= 0){
+            yhat <- 1
+        }else{
+            yhat <- -1
+        }
+        Wini <- CalcW(x,y,yhat,Wini)
+        i = i+1
+    }
+    return(Wini)
+}
+
+Weights <- Node(hw07dataTiny)
