@@ -1,104 +1,79 @@
 #testing 5 predict models with 10 kfold validation
-data= example1
+example4 <- read.delim("C:/Users/dmmpc/Desktop/GVSU/Winter_2020/CIS635_DataMining/HW_Project/example4.txt")
+data= example4
 data$rown= 1:nrow(data)%% 10
-AccA = 0
-PreA = 0
-RecA = 0
-AccB = 0
-PreB = 0
-RecB = 0
-AccC = 0
-PreC = 0
-RecC = 0
-AccD = 0
-PreD = 0
-RecD = 0
-AccE = 0
-PreE = 0
-RecE = 0
+#accA = 0
+#preA = 0
+#recA = 0
+#accB = 0
+#preB = 0
+#recB = 0
+#accC = 0
+#preC = 0
+#recC = 0
+#accD = 0
+#preD = 0
+#recD = 0
+accE = 0
+preE = 0
+recE = 0
 for (val in 0:9) {
 test = subset(data, rown==val)
 train = subset(data, rown!=val)
+#   a <- rpart(class~var1+var2, train)
+#    b <- naiveBayes(as.factor(class)~var1+var2, data=train)
+ #   c <- knn(train[,1:2], test[,1:2],train[,3] , k = 3)
+  #  d <-svm(class~var1+var2, train)
+    e <-neuralnet(data=train, factor(class)~var1+var2, hidden=4)
+    
+ #   pred <- predict(a,test[,1:2])
+  #  table <- table(round(pred,0),test[,3])
+   # accA  <- accA + (table[1] + table[4]) / 1000
+    #recA  <- recA + (table[1]/ (table[1] + table[2]))
+    #preA <- preA + (table[1]/ (table[1] + table[3]))
 
-#a <- rpart(class~var1+var2, train)
-b <- naiveBayes(as.factor(class)~var1+var2, train)
-#c <- kmeans(data[,1:2], 3)
-#d <-svm(class~var1+var2, train)
-#e <-neuralnet(data=train, class~var1+var2, hidden=4)
+#    pred <- predict(b,test)
+#    table <- table(pred,test$class)
+#    accB  <- accB + (table[1] + table[4]) / 1000
+#    recB  <- recB + (table[1]/ (table[1] + table[2]))
+#    preB <- preB + (table[1]/ (table[1] + table[3]))
 
-apred <- predict(a, test[,1:2])
-atab <- table(round(apred, 0), test[,3])
-AccA <- AccA + (atab[1]+atab[4])/1000
-RecA <- RecA + (atab[1]/(atab[1]+atab[2]))
-PreA <- PreA + (atab[1]/(atab[1]+atab[3]))
+#    table <- table(c,test[,3])
+#    accC  <- accC + (table[1] + table[4]) / 1000
+#    recC  <- recC + (table[1]/ (table[1] + table[2]))
+#    preC <- preC + (table[1]/ (table[1] + table[3]))
 
-bpred <- predict(b, test[,1:2])
-bpred < sapply(bpred, round, digits=0)
-bpred <- as.factor(bpred)
-btab <- table(bpred, test[,3])
-AccB <- AccB + (btab[1]+btab[4])/1000
-RecB <- RecB + (btab[1]/(btab[1]+btab[2]))
-PreB <- PreB + (btab[1]/(btab[1]+btab[3]))
+#    pred <- predict(d,test[,1:2])
+#    table <- table(round(pred,0),test[,3])
+#    accD  <- accD + (table[1] + table[4]) / 1000
+#    recD  <- recD + (table[1]/ (table[1] + table[2]))
+#    preD <- preD + (table[1]/ (table[1] + table[3]))
 
-cpred <- predict(c, test[,1:2])
-ctab <- table(round(cpred, 0), test[,3])
-AccC <- AccC + (ctab[1]+ctab[4])/1000
-RecC <- RecC + (ctab[1]/(ctab[1]+ctab[2]))
-PreC <- PreC + (ctab[1]/(ctab[1]+ctab[3]))
-
-dpred <- predict(d, test[,1:2])
-dtab <- table(round(dpred, 0), test[,3])
-AccD <- AccD + (dtab[1]+dtab[4])/1000
-RecD <- RecD + (dtab[1]/(dtab[1]+dtab[2]))
-PreD <- PreD + (dtab[1]/(dtab[1]+dtab[3]))
-
-epred <- predict(e, test[,1:2])
-etab <- table(round(epred, 0), test[,3])
-AccE <- AccE + (etab[1]+etab[4])/1000
-RecE <- RecE + (etab[1]/(etab[1]+etab[2]))
-PreE <- PreE + (etab[1]/(etab[1]+etab[3]))
-
+#    pred <- round(predict(e,test[,1:2]),0)
+#    table <- table(round(pred,0),test[,3])
+#    accE  <- accE + (table[1] + table[4]) / 1000
+#    recE  <- recE + (table[1]/ (table[1] + table[2]))
+#    preE <- preE + (table[1]/ (table[1] + table[3]))
 }
-AccA <- AccA / 10
-RecA <- RecA / 10
-PreA <- PreA /10
-atab
-AccA
-RecA
-PreA
+#accA/10
+#recA/10
+#preA/10
 
+#accB/10
+#recB/10
+#preB/10
 
-AccB <- AccB / 10
-RecB <- RecB / 10
-PreB <- PreB /10
-btab
-AccB
-RecB
-PreB
+#accC/10
+#recC/10
+#preC/10
 
-AccC <- AccC / 10
-RecC <- RecC / 10
-PreC <- PreC /10
-dtab
-AccC
-RecC
-PreC
+#accD/10
+#recD/10
+#preD/10
 
-AccD <- AccD / 10
-RecD <- RecD / 10
-PreD <- PreD /10
-dtab
-AccD
-RecD
-PreD
-
-AccE <- AccE / 10
-RecE <- RecE / 10
-PreE <- PreE /10
-etab
-AccE
-RecE
-PreE
+accE/10
+recE/10
+preE/10
 
 
 
